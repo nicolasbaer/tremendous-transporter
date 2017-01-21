@@ -2,7 +2,6 @@ package io.tremendous.routing;
 
 import io.grpc.Server;
 import io.grpc.ServerBuilder;
-import io.grpc.examples.helloworld.HelloWorldServer;
 import io.grpc.stub.StreamObserver;
 
 import java.io.IOException;
