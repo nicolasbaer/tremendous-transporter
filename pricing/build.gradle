@@ -86,6 +86,16 @@ task routingClient(type: CreateStartScripts) {
 }
 
 applicationDistribution.into('bin') {
-  from(routingServer)
+  from(pricingServer)
+  from(routingClient)
   fileMode = 0755
+}
+
+sourceSets {
+    main {
+        proto {
+            srcDir '../routing/src/main/proto/'
+            srcDir 'src/main/proto'
+        }
+    }
 }
