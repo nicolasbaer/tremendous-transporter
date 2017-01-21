@@ -1,0 +1,59 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "io.tremendous.request";
+option java_outer_classname = "RequestProto";
+option objc_class_prefix = "RTG";
+
+package request;
+
+// Interface exported by the server.
+service Request {
+    rpc CreateRequest(RequestInformation) returns (RequestId) {}
+    rpc GetRequest(RequestId) returns (RequestInformation) {}
+}
+
+message RequestId {
+    string id = 1;
+}
+
+message Point {
+    float latitude = 1;
+    float longitude = 2;
+}
+
+message Receiver {
+    string phone = 1;
+    string name = 2;
+}
+
+message TimeFrame {
+    bool asap = 1;
+    int32 timeFrom = 2;
+    int32 timeTo = 3;
+}
+
+message Payment {
+    string reference = 1;
+}
+
+message RequestInformation {
+    Point destination = 1;
+    bytes picture = 2;
+    enum Dimension {
+        GRANDE = 0;
+        TALL = 1;
+        VENTI = 2;
+    }
+    Dimension dimension = 3;
+
+    enum Weight {
+        LETTER = 0;
+        ZALANDO_PACKAGE = 1;
+        PIG = 2;
+    }
+    Weight weight = 4;
+    TimeFrame pickup = 5;
+    TimeFrame delivery = 6;
+    Receiver receiver = 7;
+}
