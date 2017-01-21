@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "io.tremendous.routing";
+option java_outer_classname = "RoutingProto";
+option objc_class_prefix = "HLW";
+
+package helloworld;
+
+// The greeting service definition.
+service Distance {
+    // Sends a greeting
+    rpc GetDistance (DistanceRequest) returns (DistanceReply) {}
+}
+
+// The request message containing the user's name.
+message DistanceRequest {
+    float srcLat = 1;
+    float srcLong = 2;
+    float dstLat = 3;
+    float dstLong = 4;
+}
+
+// The response message containing the greetings
+message DistanceReply {
+    float distance = 1;
+}
