@@ -7,10 +7,18 @@ option objc_class_prefix = "RTG";
 
 package request;
 
-// Interface exported by the server.
+import "google/api/annotations.proto";
+
 service Request {
-    rpc CreateRequest(RequestInformation) returns (RequestId) {}
-    rpc GetRequest(RequestId) returns (RequestInformation) {}
+    rpc CreateRequest (RequestInformation) returns (RequestId) {
+        option (google.api.http) = {
+          post: "/v1/request"
+          body: "*"
+        };
+    }
+    rpc GetRequest (RequestId) returns (RequestInformation) {
+        option (google.api.http).get = "/v1/request/{id}";
+    }
 }
 
 message RequestId {
@@ -39,21 +47,22 @@ message Payment {
 
 message RequestInformation {
     Point destination = 1;
-    bytes picture = 2;
+    Point origin = 2;
+    bytes picture = 3;
     enum Dimension {
         GRANDE = 0;
         TALL = 1;
         VENTI = 2;
     }
-    Dimension dimension = 3;
+    Dimension dimension = 4;
 
     enum Weight {
         LETTER = 0;
         ZALANDO_PACKAGE = 1;
         PIG = 2;
     }
-    Weight weight = 4;
-    TimeFrame pickup = 5;
-    TimeFrame delivery = 6;
-    Receiver receiver = 7;
+    Weight weight = 5;
+    TimeFrame pickup = 6;
+    TimeFrame delivery = 7;
+    Receiver receiver = 8;
 }

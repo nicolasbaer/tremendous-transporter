@@ -67,7 +67,11 @@ public final class RequestServiceServer {
         @Override
         public void getRequest(RequestId request, StreamObserver<RequestInformation> responseObserver) {
             super.getRequest(request, responseObserver);
-            throw new UnsupportedOperationException("not implemented");
+
+            RequestInformation requestInformation = RequestInformation.newBuilder().build();
+            responseObserver.onNext(requestInformation);
+            responseObserver.onCompleted();
+
         }
 
         /*@Override
