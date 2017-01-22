@@ -1,0 +1,172 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "request.proto",
+    "version": "version not set"
+  },
+  "schemes": [
+    "http",
+    "https"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/v1/request": {
+      "post": {
+        "operationId": "CreateRequest",
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/requestRequestId"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/requestRequestInformation"
+            }
+          }
+        ],
+        "tags": [
+          "Request"
+        ]
+      }
+    },
+    "/v1/request/{id}": {
+      "get": {
+        "operationId": "GetRequest",
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/requestRequestInformation"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "format": "string"
+          }
+        ],
+        "tags": [
+          "Request"
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "RequestInformationDimension": {
+      "type": "string",
+      "enum": [
+        "GRANDE",
+        "TALL",
+        "VENTI"
+      ],
+      "default": "GRANDE"
+    },
+    "RequestInformationWeight": {
+      "type": "string",
+      "enum": [
+        "LETTER",
+        "ZALANDO_PACKAGE",
+        "PIG"
+      ],
+      "default": "LETTER"
+    },
+    "requestPoint": {
+      "type": "object",
+      "properties": {
+        "latitude": {
+          "type": "number",
+          "format": "float"
+        },
+        "longitude": {
+          "type": "number",
+          "format": "float"
+        }
+      }
+    },
+    "requestReceiver": {
+      "type": "object",
+      "properties": {
+        "phone": {
+          "type": "string",
+          "format": "string"
+        },
+        "name": {
+          "type": "string",
+          "format": "string"
+        }
+      }
+    },
+    "requestRequestId": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "string"
+        }
+      }
+    },
+    "requestRequestInformation": {
+      "type": "object",
+      "properties": {
+        "destination": {
+          "$ref": "#/definitions/requestPoint"
+        },
+        "origin": {
+          "$ref": "#/definitions/requestPoint"
+        },
+        "picture": {
+          "type": "string",
+          "format": "byte"
+        },
+        "dimension": {
+          "$ref": "#/definitions/RequestInformationDimension"
+        },
+        "weight": {
+          "$ref": "#/definitions/RequestInformationWeight"
+        },
+        "pickup": {
+          "$ref": "#/definitions/requestTimeFrame"
+        },
+        "delivery": {
+          "$ref": "#/definitions/requestTimeFrame"
+        },
+        "receiver": {
+          "$ref": "#/definitions/requestReceiver"
+        }
+      }
+    },
+    "requestTimeFrame": {
+      "type": "object",
+      "properties": {
+        "asap": {
+          "type": "boolean",
+          "format": "boolean"
+        },
+        "timeFrom": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "timeTo": {
+          "type": "integer",
+          "format": "int32"
+        }
+      }
+    }
+  }
+}
